@@ -16,5 +16,15 @@ public class GlobalExceptionHandler {
                 ex.getMessage(),
                 HttpStatus.SERVICE_UNAVAILABLE
         );
+        
+    }
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ResponseEntity<String> handleOrderNotFound(
+            OrderNotFoundException ex) {
+
+        return new ResponseEntity<>(
+                ex.getMessage(),
+                HttpStatus.NOT_FOUND
+        );
     }
 }

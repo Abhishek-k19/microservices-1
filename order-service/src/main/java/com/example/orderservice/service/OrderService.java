@@ -3,6 +3,7 @@ package com.example.orderservice.service;
 import com.example.orderservice.client.UserClient;
 import com.example.orderservice.dto.OrderResponse;
 import com.example.orderservice.dto.UserResponse;
+import com.example.orderservice.exception.OrderNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,11 +23,15 @@ public class OrderService {
         if (orderId == 101L) {
             userId = 1L;
             productName = "Laptop";
+
         } else if (orderId == 102L) {
             userId = 2L;
             productName = "Mobile";
+
         } else {
-            return null;
+            throw new OrderNotFoundException(
+                    "Order not found with id: " + orderId
+            );
         }
 
         UserResponse user = userClient.getUserById(userId);

@@ -21,10 +21,6 @@ public class OrderController {
 
         OrderResponse order = orderService.getOrderById(id);
 
-        if (order == null) {
-            return ResponseEntity.notFound().build();
-        }
-
         return ResponseEntity.ok(order);
     }
 }
