@@ -12,29 +12,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleUserServiceUnavailable(
             UserServiceUnavailableException ex) {
 
-        return new ResponseEntity<>(
-                ex.getMessage(),
-                HttpStatus.SERVICE_UNAVAILABLE
-        );
-        
+        return ResponseEntity
+                .status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body(ex.getMessage());
     }
-    @ExceptionHandler(OrderNotFoundException.class)
-    public ResponseEntity<String> handleOrderNotFound(
-            OrderNotFoundException ex) {
-
-        return new ResponseEntity<>(
-                ex.getMessage(),
-                HttpStatus.NOT_FOUND
-        );
-    }
-    @ExceptionHandler(PaymentServiceUnavailableException.class)
-    public ResponseEntity<String> handlePaymentServiceUnavailable(
-            PaymentServiceUnavailableException ex) {
-
-        return new ResponseEntity<>(
-                ex.getMessage(),
-                HttpStatus.SERVICE_UNAVAILABLE
-        );
-    }
-	
 }

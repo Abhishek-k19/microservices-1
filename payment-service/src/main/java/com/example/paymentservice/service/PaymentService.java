@@ -9,8 +9,7 @@ import com.example.paymentservice.dto.PaymentResponse;
 @Service
 public class PaymentService {
 
-    private final AtomicInteger attemptCounter =
-            new AtomicInteger(0);
+    private final AtomicInteger attemptCounter = new AtomicInteger(0);
 
     public PaymentResponse processPayment(Long orderId) {
 
@@ -21,22 +20,16 @@ public class PaymentService {
                 " for order: " + orderId
         );
 
-        // First request fails intentionally
+        // First attempt fails intentionally
         if (attempt == 1) {
 
-            System.out.println(
-                    "Simulating temporary payment failure"
-            );
+            System.out.println("Simulating temporary payment failure");
 
-            throw new RuntimeException(
-                    "Temporary payment failure"
-            );
+            throw new RuntimeException("Temporary payment failure");
         }
 
         // Second attempt succeeds
-        System.out.println(
-                "Payment successful on attempt: " + attempt
-        );
+        System.out.println("Payment successful on attempt: " + attempt);
 
         return new PaymentResponse(
                 orderId,

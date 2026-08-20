@@ -1,26 +1,29 @@
 package com.example.orderservice.controller;
 
-import com.example.orderservice.dto.OrderResponse;
-import com.example.orderservice.service.OrderService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.orderservice.client.UserClient;
+import com.example.orderservice.dto.UserResponse;
 
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {
 
-    private final OrderService orderService;
+    private final UserClient userClient;
 
-    public OrderController(OrderService orderService) {
-        this.orderService = orderService;
+    public OrderController(UserClient userClient) {
+        this.userClient = userClient;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<OrderResponse> getOrderById(
-            @PathVariable Long id) {
+    @GetMapping("/{orderId}")
+    public String getOrder(@PathVariable Long orderId) {
 
-        OrderResponse order = orderService.getOrderById(id);
+        UserResponse user = userClient.getUserById(1L);
 
-        return ResponseEntity.ok(order);
+        return "Order " + orderId
+                + " belongs to " + user.name();
     }
 }
