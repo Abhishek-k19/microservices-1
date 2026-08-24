@@ -1,29 +1,38 @@
 package com.example.orderservice.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.orderservice.client.UserClient;
-import com.example.orderservice.dto.UserResponse;
+import com.example.orderservice.dto.OrderResponse;
+import com.example.orderservice.service.OrderService;
 
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {
 
-    private final UserClient userClient;
+    private final OrderService orderService;
 
-    public OrderController(UserClient userClient) {
-        this.userClient = userClient;
+    @Value("${app.message}")
+    private String message;
+
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
     }
 
-    @GetMapping("/{orderId}")
-    public String getOrder(@PathVariable Long orderId) {
+    // Existing Order API
+    @GetMapping("/{id}")
+    public OrderResponse getOrder(@PathVariable Long id) {
 
-        UserResponse user = userClient.getUserById(1L);
+        return orderService.getOrderById(id);
+    }
 
-        return "Order " + orderId
-                + " belongs to " + user.name();
+    // Day 7 - Test centralized configuration
+    @GetMapping("/config")
+    public String getConfigMessage() {
+
+        return message;
     }
 }

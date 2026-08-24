@@ -11,13 +11,13 @@ import com.example.userservice.dto.UserResponse;
 @RequestMapping("/users")
 public class UserController {
 
-    @GetMapping("/{id}")
-    public UserResponse getUser(@PathVariable Long id) {
+	@GetMapping("/{id}")
+	public UserResponse getUser(@PathVariable Long id) {
 
-        return new UserResponse(
-                id,
-                "John",
-                "john@example.com"
-        );
-    }
+	    return new UserResponse(
+	            id,
+	            "John",
+	            "john@example.com"
+	    );
+	}
 }
